@@ -1,9 +1,10 @@
-import { Routes, Route, NavLink, useLocation } from 'react-router-dom'
+import { Routes, Route, NavLink, useLocation, Navigate } from 'react-router-dom'
 import { RiDashboardLine, RiMoneyDollarCircleLine, RiPieChartLine, RiPriceTagLine } from 'react-icons/ri'
 import Dashboard from './components/Dashboard'
 import Expenses from './components/Expenses'
 import Analytics from './components/Analytics'
 import Categories from './components/Categories'
+import AuthPage from './components/AuthPage'
 
 const NAV = [
   { to: '/', label: 'Dashboard', icon: RiDashboardLine },
@@ -12,8 +13,18 @@ const NAV = [
   { to: '/categories', label: 'Categories', icon: RiPriceTagLine },
 ]
 
-export default function App() {
+function PrivateRoute({ children }) {
+  const token = localStorage.getItem('token')
+  return token ? children : <Navigate to="/login" replace />
+}
+
+function AppLayout() {
   const location = useLocation()
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    window.location.href = '/login'
+  }
 
   return (
     <div className="layout">
@@ -36,8 +47,14 @@ export default function App() {
             </li>
           ))}
         </ul>
-        <div style={{ padding: '16px 24px', borderTop: '1px solid var(--border)', fontSize: 12, color: 'var(--text-muted)' }}>
-          SpendWise v1.0 · FastAPI + React
+        <div style={{ padding: '16px 24px', borderTop: '1px solid var(--border)' }}>
+          <button
+            onClick={handleLogout}
+            style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 12, cursor: 'pointer', padding: 0 }}
+          >
+            🚪 Sign out
+          </button>
+          <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 6 }}>SpendWise v1.0 · FastAPI + React</div>
         </div>
       </aside>
 
@@ -50,5 +67,21 @@ export default function App() {
         </Routes>
       </main>
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/login" element={<AuthPage />} />
+      <Route
+        path="/*"
+        element={
+          <PrivateRoute>
+            <AppLayout />
+          </PrivateRoute>
+        }
+      />
+    </Routes>
   )
 }

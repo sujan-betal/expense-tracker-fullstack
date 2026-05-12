@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from database import engine
 import models
 from routers import expenses, categories, analytics
+from routers import auth
 
 # Create all tables
 models.Base.metadata.create_all(bind=engine)
@@ -16,8 +17,8 @@ app = FastAPI(
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -26,6 +27,7 @@ app.add_middleware(
 app.include_router(expenses.router)
 app.include_router(categories.router)
 app.include_router(analytics.router)
+app.include_router(auth.router)
 
 
 @app.get("/")
