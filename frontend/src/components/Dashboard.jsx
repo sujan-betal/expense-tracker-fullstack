@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { getDashboard, getExpenses, getByCategory } from '../api/api'
 import { format } from 'date-fns'
 import { RiArrowUpLine, RiArrowDownLine } from 'react-icons/ri'
@@ -61,7 +62,7 @@ export default function Dashboard() {
         <div className="card" style={{ gridColumn: '1 / -1' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
             <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16 }}>Recent Transactions</div>
-            <a href="/expenses" style={{ fontSize: 13, color: 'var(--accent)', textDecoration: 'none' }}>View all →</a>
+            <Link to="/expenses" style={{ fontSize: 13, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>View all →</Link>
           </div>
           {recent.length === 0 ? (
             <div className="empty-state">
