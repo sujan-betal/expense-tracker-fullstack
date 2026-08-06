@@ -1,4 +1,4 @@
-import { Routes, Route, NavLink, useLocation, Navigate } from 'react-router-dom'
+import { Routes, Route, NavLink, useLocation, useNavigate, Navigate } from 'react-router-dom'
 import { RiDashboardLine, RiMoneyDollarCircleLine, RiPieChartLine, RiPriceTagLine } from 'react-icons/ri'
 import Dashboard from './components/Dashboard'
 import Expenses from './components/Expenses'
@@ -20,10 +20,11 @@ function PrivateRoute({ children }) {
 
 function AppLayout() {
   const location = useLocation()
+  const navigate = useNavigate()
   const handleLogout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-    window.location.href = '/login'
+    navigate('/login', { replace: true })
   }
 
   return (

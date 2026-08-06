@@ -26,13 +26,18 @@ export default function Expenses() {
     if (filters.category_id) params.category_id = filters.category_id
     if (filters.month) params.month = filters.month
     if (filters.year) params.year = filters.year
-    const { data } = await getExpenses(params)
-    setExpenses(data)
-    setLoading(false)
+    try {
+      const { data } = await getExpenses(params)
+      setExpenses(data)
+    } catch {
+      setExpenses([])
+    } finally {
+      setLoading(false)
+    }
   }, [filters])
 
   useEffect(() => { load() }, [load])
-  useEffect(() => { getCategories().then(r => setCategories(r.data)) }, [])
+  useEffect(() => { getCategories().then(r => setCategories(r.data)).catch(() => setCategories([])) }, [])
 
   const handleDelete = async (id) => {
     if (!confirm('Delete this expense?')) return

@@ -7,15 +7,18 @@ const GRADIENT = "linear-gradient(120deg, #6366f1, #8b5cf6, #d946ef)";
 
 function Field({ label, type = "text", value, onChange, error, icon }) {
   const [focused, setFocused] = useState(false);
+  const [show, setShow] = useState(false);
+  const isPassword = type === "password";
+  const inputType = isPassword ? (show ? "text" : "password") : type;
   const active = focused || value.length > 0;
   return (
     <div style={{ position: "relative", marginBottom: 18 }}>
       <div style={{
         display: "flex", alignItems: "center",
         borderRadius: 14,
-        background: "#f3f4fb",
+        background: focused ? "#ffffff" : "#f3f4fb",
         border: `1.5px solid ${error ? "#ef4444" : focused ? "#6366f1" : "#e3e5f2"}`,
-        boxShadow: focused ? "0 0 0 4px rgba(99,102,241,0.12), 0 4px 20px rgba(99,102,241,0.14)" : "none",
+        boxShadow: focused ? "0 0 0 4px rgba(99,102,241,0.12), 0 4px 18px rgba(99,102,241,0.12)" : "none",
         transition: "all .2s",
       }}>
         <span style={{ padding: "0 0 0 16px", color: focused ? "#6366f1" : "#9396b2", fontSize: 16 }}>{icon}</span>
@@ -25,25 +28,40 @@ function Field({ label, type = "text", value, onChange, error, icon }) {
             top: active ? 8 : "50%",
             transform: active ? "none" : "translateY(-50%)",
             fontSize: active ? 10 : 14,
-            color: focused ? "#6366f1" : "#9396b2",
+            color: error ? "#ef4444" : focused ? "#6366f1" : "#9396b2",
             transition: "all .18s", pointerEvents: "none",
             letterSpacing: active ? 1 : 0,
             textTransform: active ? "uppercase" : "none",
             fontWeight: active ? 600 : 400,
           }}>{label}</label>
           <input
-            type={type} value={value}
+            type={inputType} value={value}
             onChange={e => onChange(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             style={{
-              position: "absolute", bottom: 0, left: 12, right: 0, height: 32,
+              position: "absolute", bottom: 0, left: 12, right: isPassword ? 40 : 0, height: 32,
               background: "transparent", border: "none", outline: "none",
-              color: "#191a2f", fontSize: 15, width: "calc(100% - 12px)",
+              color: "#191a2f", fontSize: 15, width: isPassword ? "calc(100% - 52px)" : "calc(100% - 12px)",
               fontFamily: "'Plus Jakarta Sans', sans-serif",
             }}
           />
         </div>
+        {isPassword && (
+          <button
+            type="button"
+            tabIndex="-1"
+            onClick={() => setShow(s => !s)}
+            style={{
+              width: 44, height: 44, border: "none", background: "transparent",
+              cursor: "pointer", fontSize: 16, color: focused ? "#6366f1" : "#9396b2",
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}
+            title={show ? "Hide password" : "Show password"}
+          >
+            {show ? "🙈" : "👁️"}
+          </button>
+        )}
       </div>
       {error && <p style={{ color: "#ef4444", fontSize: 11, margin: "5px 0 0 4px" }}>{error}</p>}
     </div>
@@ -111,83 +129,48 @@ export default function AuthPage() {
     setName(""); setEmail(""); setPassword("");
   };
 
+  const handleKeyDown = (e) => { if (e.key === "Enter") handleSubmit(); };
+
   return (
     <div style={{
       minHeight: "100vh", background: "#f4f5fb",
       backgroundImage:
-        "radial-gradient(1100px 600px at 88% -8%, rgba(129,140,248,0.22), transparent 60%)," +
-        "radial-gradient(800px 500px at -8% 40%, rgba(232,121,249,0.14), transparent 60%)," +
-        "radial-gradient(900px 700px at 50% 120%, rgba(34,211,238,0.16), transparent 60%)",
-      display: "flex", fontFamily: "'Plus Jakarta Sans', sans-serif",
+        "radial-gradient(1000px 560px at 85% -5%, rgba(129,140,248,0.22), transparent 60%)," +
+        "radial-gradient(800px 500px at -5% 35%, rgba(232,121,249,0.14), transparent 60%)," +
+        "radial-gradient(900px 650px at 50% 118%, rgba(34,211,238,0.16), transparent 60%)",
+      display: "flex", alignItems: "center", justifyContent: "center",
+      padding: 24, position: "relative", overflow: "hidden",
+      fontFamily: "'Plus Jakarta Sans', sans-serif",
     }}>
 
-      {/* ── Left branding panel ── */}
-      <div style={{
-        flex: 1, display: "flex", flexDirection: "column", justifyContent: "center",
-        padding: "60px 80px", position: "relative", overflow: "hidden",
-      }}>
-        <div style={{ position: "absolute", width: 420, height: 420, borderRadius: "50%", background: "radial-gradient(circle, rgba(129,140,248,0.35) 0%, transparent 70%)", filter: "blur(60px)", top: -120, left: -100, pointerEvents: "none" }} />
-        <div style={{ position: "absolute", width: 360, height: 360, borderRadius: "50%", background: "radial-gradient(circle, rgba(34,211,238,0.3) 0%, transparent 70%)", filter: "blur(60px)", bottom: -80, right: 40, pointerEvents: "none" }} />
+      {/* Floating decorative orbs */}
+      <div style={{ position: "absolute", width: 340, height: 340, borderRadius: "50%", background: "radial-gradient(circle, rgba(129,140,248,0.3) 0%, transparent 70%)", filter: "blur(60px)", top: -80, left: -60, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle, rgba(34,211,238,0.28) 0%, transparent 70%)", filter: "blur(60px)", bottom: -60, right: -40, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", width: 220, height: 220, borderRadius: "50%", background: "radial-gradient(circle, rgba(232,121,249,0.24) 0%, transparent 70%)", filter: "blur(60px)", top: "50%", left: "8%", pointerEvents: "none" }} />
 
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 72 }}>
-            <div style={{ width: 40, height: 40, background: GRADIENT, borderRadius: 11, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 19, color: "#fff", fontWeight: 700, boxShadow: "0 8px 24px rgba(99,102,241,0.4)" }}>₹</div>
-            <span style={{ fontSize: 21, fontWeight: 800, color: "#191a2f", fontFamily: "'Sora', sans-serif" }}>
+      <div style={{ width: "100%", maxWidth: 440, position: "relative", zIndex: 1 }}>
+        <div style={{
+          position: "relative", overflow: "hidden",
+          background: "rgba(255,255,255,0.92)", border: "1px solid rgba(99,102,241,0.16)",
+          borderRadius: 24, padding: "40px 38px 32px",
+          backdropFilter: "blur(16px)",
+          boxShadow: "0 30px 80px rgba(40,44,96,0.18), 0 0 44px rgba(99,102,241,0.08)",
+        }}>
+          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: GRADIENT }} />
+
+          {/* Brand */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 28 }}>
+            <div style={{ width: 38, height: 38, background: GRADIENT, borderRadius: 11, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, color: "#fff", fontWeight: 700, boxShadow: "0 8px 22px rgba(99,102,241,0.4)" }}>₹</div>
+            <span style={{ fontSize: 20, fontWeight: 800, color: "#191a2f", fontFamily: "'Sora', sans-serif" }}>
               Spend<span style={{ background: GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Wise</span>
             </span>
           </div>
 
-          <h1 style={{ fontSize: 52, fontWeight: 800, color: "#191a2f", lineHeight: 1.12, margin: "0 0 22px", letterSpacing: -1.5, fontFamily: "'Sora', sans-serif" }}>
-            Every rupee,
-            <br />
-            <span style={{ background: GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-              accounted for.
-            </span>
-          </h1>
-
-          <p style={{ color: "#5c5e7a", fontSize: 15, lineHeight: 1.8, maxWidth: 400, margin: "0 0 44px" }}>
-            Track spending across categories, set budgets, and understand your financial patterns — all in one place.
-          </p>
-
-          {[
-            ["📊", "Visual analytics by category and month"],
-            ["🔔", "Budget alerts before you overspend"],
-            ["🔒", "JWT-secured, your data stays private"],
-          ].map(([icon, text]) => (
-            <div key={text} style={{
-              display: "flex", alignItems: "center", gap: 14, marginBottom: 12,
-              padding: "13px 18px", borderRadius: 14,
-              background: "rgba(255,255,255,0.7)", border: "1px solid rgba(99,102,241,0.14)",
-              backdropFilter: "blur(10px)", maxWidth: 420,
-              boxShadow: "0 4px 16px rgba(40,44,96,0.06)",
-              transition: "transform .2s, box-shadow .2s", cursor: "default",
-            }} onMouseEnter={e => { e.currentTarget.style.transform = "translateX(6px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(99,102,241,0.14)"; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(40,44,96,0.06)"; }}>
-              <span style={{ fontSize: 18, filter: "drop-shadow(0 4px 8px rgba(99,102,241,0.3))" }}>{icon}</span>
-              <span style={{ color: "#4c4e6b", fontSize: 14 }}>{text}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── Right form panel ── */}
-      <div style={{
-        width: 500, minWidth: 360, display: "flex", flexDirection: "column", justifyContent: "center",
-        padding: "60px 52px",
-      }}>
-        <div style={{
-          position: "relative", overflow: "hidden",
-          background: "rgba(255,255,255,0.85)", border: "1px solid rgba(99,102,241,0.16)",
-          borderRadius: 24, padding: "40px 38px",
-          backdropFilter: "blur(16px)", boxShadow: "0 30px 80px rgba(40,44,96,0.18), 0 0 44px rgba(99,102,241,0.1)",
-        }}>
-          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: GRADIENT }} />
-
-          <h2 style={{ fontSize: 30, fontWeight: 700, color: "#191a2f", margin: "0 0 8px", letterSpacing: -0.6, fontFamily: "'Sora', sans-serif" }}>
-            {mode === "login" ? "Welcome back" : "Create account"}
+          <h2 style={{ fontSize: 26, fontWeight: 700, color: "#191a2f", margin: "0 0 6px", letterSpacing: -0.5, fontFamily: "'Sora', sans-serif", textAlign: "center" }}>
+            {mode === "login" ? "Welcome back 👋" : "Create your account 🚀"}
           </h2>
-          <p style={{ color: "#5c5e7a", margin: "0 0 30px", fontSize: 14 }}>
-            {mode === "login" ? "Sign in to your account." : "Start tracking in under a minute."}
+          <p style={{ color: "#5c5e7a", margin: "0 0 28px", fontSize: 14, textAlign: "center" }}>
+            {mode === "login" ? "Sign in to continue to SpendWise." : "Start tracking in under a minute."}
           </p>
 
           {mode === "register" && (
@@ -207,6 +190,7 @@ export default function AuthPage() {
 
           <button
             onClick={handleSubmit}
+            onKeyDown={handleKeyDown}
             disabled={loading}
             style={{
               width: "100%", padding: "14px 0", borderRadius: 14, border: "none",
@@ -236,6 +220,10 @@ export default function AuthPage() {
             </button>
           </p>
         </div>
+
+        <p style={{ textAlign: "center", color: "#9396b2", fontSize: 12, marginTop: 18, letterSpacing: 0.02 }}>
+          💸 Track every rupee · Secured with JWT
+        </p>
       </div>
     </div>
   );

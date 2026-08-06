@@ -85,7 +85,7 @@ export default function Categories() {
 
   const load = () => {
     setLoading(true)
-    getCategories().then(r => setCats(r.data)).finally(() => setLoading(false))
+    getCategories().then(r => setCats(r.data)).catch(() => setCats([])).finally(() => setLoading(false))
   }
 
   useEffect(() => { load() }, [])

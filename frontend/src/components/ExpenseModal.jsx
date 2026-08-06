@@ -16,7 +16,7 @@ export default function ExpenseModal({ expense, onClose, onSaved }) {
   const [saving, setSaving] = useState(false)
 
   useEffect(() => {
-    getCategories().then(r => setCategories(r.data))
+    getCategories().then(r => setCategories(r.data)).catch(() => setCategories([]))
   }, [])
 
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))

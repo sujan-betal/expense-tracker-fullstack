@@ -35,6 +35,9 @@ export default function Analytics() {
     ]).then(([m, c]) => {
       setMonthly(m.data)
       setCatData(c.data)
+    }).catch(() => {
+      setMonthly([])
+      setCatData([])
     }).finally(() => setLoading(false))
   }, [year, month])
 

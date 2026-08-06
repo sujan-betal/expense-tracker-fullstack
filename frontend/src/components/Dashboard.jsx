@@ -18,7 +18,7 @@ export default function Dashboard() {
       setStats(s.data)
       setRecent(e.data)
       setCatData(c.data)
-    }).finally(() => setLoading(false))
+    }).catch(() => {}).finally(() => setLoading(false))
   }, [])
 
   if (loading) return <div className="loader"><div className="spinner" /></div>
