@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const API = import.meta.env.VITE_API_URL || '/api';
 
-const GRADIENT = "linear-gradient(120deg, #8b5cf6, #d946ef, #22d3ee)";
+const GRADIENT = "linear-gradient(120deg, #6366f1, #8b5cf6, #d946ef)";
 
 function Field({ label, type = "text", value, onChange, error, icon }) {
   const [focused, setFocused] = useState(false);
@@ -13,20 +13,19 @@ function Field({ label, type = "text", value, onChange, error, icon }) {
       <div style={{
         display: "flex", alignItems: "center",
         borderRadius: 14,
-        background: "rgba(255,255,255,0.05)",
-        border: `1.5px solid ${error ? "#fb7185" : focused ? "#a78bfa" : "rgba(255,255,255,0.1)"}`,
-        boxShadow: focused ? "0 0 0 4px rgba(167,139,250,0.14), 0 0 24px rgba(139,92,246,0.18)" : "none",
+        background: "#f3f4fb",
+        border: `1.5px solid ${error ? "#ef4444" : focused ? "#6366f1" : "#e3e5f2"}`,
+        boxShadow: focused ? "0 0 0 4px rgba(99,102,241,0.12), 0 4px 20px rgba(99,102,241,0.14)" : "none",
         transition: "all .2s",
-        backdropFilter: "blur(10px)",
       }}>
-        <span style={{ padding: "0 0 0 16px", color: focused ? "#c4b5fd" : "#6d6b8f", fontSize: 16 }}>{icon}</span>
+        <span style={{ padding: "0 0 0 16px", color: focused ? "#6366f1" : "#9396b2", fontSize: 16 }}>{icon}</span>
         <div style={{ flex: 1, position: "relative", height: 54 }}>
           <label style={{
             position: "absolute", left: 12,
             top: active ? 8 : "50%",
             transform: active ? "none" : "translateY(-50%)",
             fontSize: active ? 10 : 14,
-            color: focused ? "#c4b5fd" : "#6d6b8f",
+            color: focused ? "#6366f1" : "#9396b2",
             transition: "all .18s", pointerEvents: "none",
             letterSpacing: active ? 1 : 0,
             textTransform: active ? "uppercase" : "none",
@@ -40,13 +39,13 @@ function Field({ label, type = "text", value, onChange, error, icon }) {
             style={{
               position: "absolute", bottom: 0, left: 12, right: 0, height: 32,
               background: "transparent", border: "none", outline: "none",
-              color: "#f4f2ff", fontSize: 15, width: "calc(100% - 12px)",
+              color: "#191a2f", fontSize: 15, width: "calc(100% - 12px)",
               fontFamily: "'Plus Jakarta Sans', sans-serif",
             }}
           />
         </div>
       </div>
-      {error && <p style={{ color: "#fb7185", fontSize: 11, margin: "5px 0 0 4px" }}>{error}</p>}
+      {error && <p style={{ color: "#ef4444", fontSize: 11, margin: "5px 0 0 4px" }}>{error}</p>}
     </div>
   );
 }
@@ -114,11 +113,11 @@ export default function AuthPage() {
 
   return (
     <div style={{
-      minHeight: "100vh", background: "#06050d",
+      minHeight: "100vh", background: "#f4f5fb",
       backgroundImage:
-        "radial-gradient(1100px 600px at 85% -10%, rgba(139,92,246,0.18), transparent 60%)," +
-        "radial-gradient(800px 500px at -10% 40%, rgba(217,70,239,0.12), transparent 60%)," +
-        "radial-gradient(900px 700px at 50% 120%, rgba(34,211,238,0.10), transparent 60%)",
+        "radial-gradient(1100px 600px at 88% -8%, rgba(129,140,248,0.22), transparent 60%)," +
+        "radial-gradient(800px 500px at -8% 40%, rgba(232,121,249,0.14), transparent 60%)," +
+        "radial-gradient(900px 700px at 50% 120%, rgba(34,211,238,0.16), transparent 60%)",
       display: "flex", fontFamily: "'Plus Jakarta Sans', sans-serif",
     }}>
 
@@ -127,18 +126,18 @@ export default function AuthPage() {
         flex: 1, display: "flex", flexDirection: "column", justifyContent: "center",
         padding: "60px 80px", position: "relative", overflow: "hidden",
       }}>
-        <div style={{ position: "absolute", width: 420, height: 420, borderRadius: "50%", background: "radial-gradient(circle, rgba(139,92,246,0.35) 0%, transparent 70%)", filter: "blur(60px)", top: -120, left: -100, pointerEvents: "none" }} />
-        <div style={{ position: "absolute", width: 360, height: 360, borderRadius: "50%", background: "radial-gradient(circle, rgba(34,211,238,0.28) 0%, transparent 70%)", filter: "blur(60px)", bottom: -80, right: 40, pointerEvents: "none" }} />
+        <div style={{ position: "absolute", width: 420, height: 420, borderRadius: "50%", background: "radial-gradient(circle, rgba(129,140,248,0.35) 0%, transparent 70%)", filter: "blur(60px)", top: -120, left: -100, pointerEvents: "none" }} />
+        <div style={{ position: "absolute", width: 360, height: 360, borderRadius: "50%", background: "radial-gradient(circle, rgba(34,211,238,0.3) 0%, transparent 70%)", filter: "blur(60px)", bottom: -80, right: 40, pointerEvents: "none" }} />
 
         <div style={{ position: "relative", zIndex: 1 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 72 }}>
-            <div style={{ width: 40, height: 40, background: GRADIENT, borderRadius: 11, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 19, color: "#fff", fontWeight: 700, boxShadow: "0 8px 24px rgba(139,92,246,0.5)" }}>₹</div>
-            <span style={{ fontSize: 21, fontWeight: 800, color: "#f4f2ff", fontFamily: "'Sora', sans-serif" }}>
+            <div style={{ width: 40, height: 40, background: GRADIENT, borderRadius: 11, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 19, color: "#fff", fontWeight: 700, boxShadow: "0 8px 24px rgba(99,102,241,0.4)" }}>₹</div>
+            <span style={{ fontSize: 21, fontWeight: 800, color: "#191a2f", fontFamily: "'Sora', sans-serif" }}>
               Spend<span style={{ background: GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Wise</span>
             </span>
           </div>
 
-          <h1 style={{ fontSize: 52, fontWeight: 800, color: "#f4f2ff", lineHeight: 1.12, margin: "0 0 22px", letterSpacing: -1.5, fontFamily: "'Sora', sans-serif" }}>
+          <h1 style={{ fontSize: 52, fontWeight: 800, color: "#191a2f", lineHeight: 1.12, margin: "0 0 22px", letterSpacing: -1.5, fontFamily: "'Sora', sans-serif" }}>
             Every rupee,
             <br />
             <span style={{ background: GRADIENT, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
@@ -146,7 +145,7 @@ export default function AuthPage() {
             </span>
           </h1>
 
-          <p style={{ color: "#a8a6c9", fontSize: 15, lineHeight: 1.8, maxWidth: 400, margin: "0 0 44px" }}>
+          <p style={{ color: "#5c5e7a", fontSize: 15, lineHeight: 1.8, maxWidth: 400, margin: "0 0 44px" }}>
             Track spending across categories, set budgets, and understand your financial patterns — all in one place.
           </p>
 
@@ -158,13 +157,14 @@ export default function AuthPage() {
             <div key={text} style={{
               display: "flex", alignItems: "center", gap: 14, marginBottom: 12,
               padding: "13px 18px", borderRadius: 14,
-              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
+              background: "rgba(255,255,255,0.7)", border: "1px solid rgba(99,102,241,0.14)",
               backdropFilter: "blur(10px)", maxWidth: 420,
-              transition: "transform .2s", cursor: "default",
-            }} onMouseEnter={e => e.currentTarget.style.transform = "translateX(6px)"}
-              onMouseLeave={e => e.currentTarget.style.transform = "none"}>
-              <span style={{ fontSize: 18, filter: "drop-shadow(0 4px 10px rgba(139,92,246,0.4))" }}>{icon}</span>
-              <span style={{ color: "#b9b7d8", fontSize: 14 }}>{text}</span>
+              boxShadow: "0 4px 16px rgba(40,44,96,0.06)",
+              transition: "transform .2s, box-shadow .2s", cursor: "default",
+            }} onMouseEnter={e => { e.currentTarget.style.transform = "translateX(6px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(99,102,241,0.14)"; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(40,44,96,0.06)"; }}>
+              <span style={{ fontSize: 18, filter: "drop-shadow(0 4px 8px rgba(99,102,241,0.3))" }}>{icon}</span>
+              <span style={{ color: "#4c4e6b", fontSize: 14 }}>{text}</span>
             </div>
           ))}
         </div>
@@ -177,16 +177,16 @@ export default function AuthPage() {
       }}>
         <div style={{
           position: "relative", overflow: "hidden",
-          background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)",
+          background: "rgba(255,255,255,0.85)", border: "1px solid rgba(99,102,241,0.16)",
           borderRadius: 24, padding: "40px 38px",
-          backdropFilter: "blur(16px)", boxShadow: "0 30px 80px rgba(0,0,0,0.5), 0 0 44px rgba(139,92,246,0.15)",
+          backdropFilter: "blur(16px)", boxShadow: "0 30px 80px rgba(40,44,96,0.18), 0 0 44px rgba(99,102,241,0.1)",
         }}>
-          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: GRADIENT }} />
+          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: GRADIENT }} />
 
-          <h2 style={{ fontSize: 30, fontWeight: 700, color: "#f4f2ff", margin: "0 0 8px", letterSpacing: -0.6, fontFamily: "'Sora', sans-serif" }}>
+          <h2 style={{ fontSize: 30, fontWeight: 700, color: "#191a2f", margin: "0 0 8px", letterSpacing: -0.6, fontFamily: "'Sora', sans-serif" }}>
             {mode === "login" ? "Welcome back" : "Create account"}
           </h2>
-          <p style={{ color: "#a8a6c9", margin: "0 0 30px", fontSize: 14 }}>
+          <p style={{ color: "#5c5e7a", margin: "0 0 30px", fontSize: 14 }}>
             {mode === "login" ? "Sign in to your account." : "Start tracking in under a minute."}
           </p>
 
@@ -198,8 +198,8 @@ export default function AuthPage() {
 
           {serverError && (
             <div style={{
-              background: "rgba(251,113,133,0.1)", border: "1px solid rgba(251,113,133,0.28)",
-              borderRadius: 12, padding: "10px 14px", marginBottom: 16, color: "#fb7185", fontSize: 13,
+              background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.24)",
+              borderRadius: 12, padding: "10px 14px", marginBottom: 16, color: "#ef4444", fontSize: 13,
             }}>
               ⚠️ {serverError}
             </div>
@@ -210,22 +210,22 @@ export default function AuthPage() {
             disabled={loading}
             style={{
               width: "100%", padding: "14px 0", borderRadius: 14, border: "none",
-              background: loading ? "#3a2a5a" : GRADIENT,
+              background: loading ? "#a5a9c8" : GRADIENT,
               backgroundSize: loading ? undefined : "180% 180%",
               color: "#fff", fontSize: 15, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif",
               cursor: loading ? "not-allowed" : "pointer",
-              marginBottom: 20, opacity: loading ? 0.7 : 1,
-              boxShadow: "0 10px 28px rgba(139,92,246,0.4)",
+              marginBottom: 20, opacity: loading ? 0.75 : 1,
+              boxShadow: "0 10px 26px rgba(99,102,241,0.4)",
               transition: "transform .2s, box-shadow .2s",
               position: "relative", overflow: "hidden",
             }}
-            onMouseEnter={e => { if (!loading) { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 14px 34px rgba(217,70,239,0.5)"; } }}
-            onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 10px 28px rgba(139,92,246,0.4)"; }}
+            onMouseEnter={e => { if (!loading) { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 14px 34px rgba(139,92,246,0.45)"; } }}
+            onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 10px 26px rgba(99,102,241,0.4)"; }}
           >
             {loading ? "Please wait…" : mode === "login" ? "Sign in →" : "Create account →"}
           </button>
 
-          <p style={{ textAlign: "center", color: "#a8a6c9", fontSize: 13, margin: 0 }}>
+          <p style={{ textAlign: "center", color: "#5c5e7a", fontSize: 13, margin: 0 }}>
             {mode === "login" ? "Don't have an account? " : "Already have an account? "}
             <button onClick={switchMode} style={{
               background: "none", border: "none",

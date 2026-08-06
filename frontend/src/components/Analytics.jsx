@@ -79,7 +79,7 @@ export default function Analytics() {
                 <Tooltip content={<CustomTooltip />} />
                 <Bar dataKey="total" radius={[8, 8, 0, 0]}>
                   {barData.map((_, i) => (
-                    <Cell key={i} fill={i + 1 === month ? '#a78bfa' : '#2c2c44'} />
+                    <Cell key={i} fill={i + 1 === month ? '#6366f1' : '#e3e5f2'} />
                   ))}
                 </Bar>
               </BarChart>
