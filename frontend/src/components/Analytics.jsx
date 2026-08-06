@@ -77,9 +77,9 @@ export default function Analytics() {
                 <XAxis dataKey="name" tick={{ fill: 'var(--text-muted)', fontSize: 12 }} axisLine={false} tickLine={false} />
                 <YAxis tickFormatter={fmt} tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="total" radius={[6, 6, 0, 0]}>
+                <Bar dataKey="total" radius={[8, 8, 0, 0]}>
                   {barData.map((_, i) => (
-                    <Cell key={i} fill={i + 1 === month ? '#7c6af7' : '#2a2a3a'} />
+                    <Cell key={i} fill={i + 1 === month ? '#a78bfa' : '#2c2c44'} />
                   ))}
                 </Bar>
               </BarChart>

@@ -30,8 +30,8 @@ function AppLayout() {
     <div className="layout">
       <aside className="sidebar">
         <div className="sidebar-logo">
-          <h1>💸 Spend<span>Wise</span></h1>
-          <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>Track every rupee</div>
+          <h1><span className="logo-mark">₹</span> Spend<span>Wise</span></h1>
+          <div className="logo-tag">Track every rupee</div>
         </div>
         <ul className="sidebar-nav">
           {NAV.map(({ to, label, icon: Icon }) => (
@@ -47,14 +47,9 @@ function AppLayout() {
             </li>
           ))}
         </ul>
-        <div style={{ padding: '16px 24px', borderTop: '1px solid var(--border)' }}>
-          <button
-            onClick={handleLogout}
-            style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 12, cursor: 'pointer', padding: 0 }}
-          >
-            🚪 Sign out
-          </button>
-          <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 6 }}>SpendWise v1.0 · FastAPI + React</div>
+        <div className="sidebar-foot">
+          <button onClick={handleLogout}>🚪 Sign out</button>
+          <div className="foot-version">SpendWise v1.0 · FastAPI + React</div>
         </div>
       </aside>
 
