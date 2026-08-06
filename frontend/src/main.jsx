@@ -6,8 +6,7 @@ import App from './App.jsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter>
+  <BrowserRouter>
       <App />
       <Toaster
         position="bottom-right"
@@ -25,5 +24,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         }}
       />
     </BrowserRouter>
-  </React.StrictMode>
 )

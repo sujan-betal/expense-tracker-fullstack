@@ -106,11 +106,15 @@ export default function AuthPage() {
       : { email, password, name };
 
     try {
+      const controller = new AbortController()
+      const timer = setTimeout(() => controller.abort(), 15000)
       const r = await fetch(`${API}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
-      });
+        signal: controller.signal,
+      })
+      clearTimeout(timer)
       const data = await r.json();
       if (!r.ok) throw new Error(data.detail || "Something went wrong");
       localStorage.setItem("token", data.access_token);

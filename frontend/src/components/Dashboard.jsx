@@ -10,15 +10,10 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    Promise.all([
-      getDashboard(),
-      getExpenses({ limit: 8 }),
-      getByCategory({ month: new Date().getMonth() + 1, year: new Date().getFullYear() }),
-    ]).then(([s, e, c]) => {
-      setStats(s.data)
-      setRecent(e.data)
-      setCatData(c.data)
-    }).catch(() => {}).finally(() => setLoading(false))
+    const done = () => setLoading(false)
+    getDashboard().then(r => setStats(r.data)).catch(() => {}).then(done)
+    getExpenses({ limit: 8 }).then(r => setRecent(r.data)).catch(() => {}).then(done)
+    getByCategory({ month: new Date().getMonth() + 1, year: new Date().getFullYear() }).then(r => setCatData(r.data)).catch(() => {}).then(done)
   }, [])
 
   if (loading) return <div className="loader"><div className="spinner" /></div>

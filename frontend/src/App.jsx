@@ -50,7 +50,6 @@ function AppLayout() {
         </ul>
         <div className="sidebar-foot">
           <button onClick={handleLogout}>🚪 Sign out</button>
-          <div className="foot-version">SpendWise v1.0 · FastAPI + React</div>
         </div>
       </aside>
 
