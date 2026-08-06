@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser, registerUser } from "../api/auth";
 
-const API = import.meta.env.VITE_API_URL;
+const API = import.meta.env.VITE_API_URL || '/api';
 
 function Field({ label, type = "text", value, onChange, error, icon }) {
   const [focused, setFocused] = useState(false);
