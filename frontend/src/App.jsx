@@ -33,6 +33,7 @@ function AppLayout() {
   const handleLogout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
+    localStorage.removeItem('demo_mode')
     setConfirmOut(false)
     navigate('/login', { replace: true })
   }
@@ -90,6 +91,11 @@ function AppLayout() {
       )}
 
       <main className="main-content">
+        {localStorage.getItem('demo_mode') === 'true' && (
+          <div role="status" style={{ marginBottom: 18, padding: '12px 16px', borderRadius: 12, background: '#eef2ff', color: '#4338ca', fontSize: 13, fontWeight: 600 }}>
+            Read-only demo · Sample data only. Changes are not saved.
+          </div>
+        )}
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/expenses" element={<Expenses />} />

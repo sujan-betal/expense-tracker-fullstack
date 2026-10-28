@@ -78,6 +78,13 @@ export default function AuthPage() {
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const handleDemoAccess = () => {
+    localStorage.setItem("demo_mode", "true");
+    localStorage.setItem("token", "demo-read-only");
+    localStorage.setItem("user", JSON.stringify({ name: "Demo User", email: "demo@spendwise.local" }));
+    navigate("/", { replace: true });
+  };
+
   useEffect(() => {
     if (localStorage.getItem("token")) navigate("/", { replace: true });
   }, []);
@@ -212,6 +219,22 @@ export default function AuthPage() {
           >
             {loading ? "Please wait…" : mode === "login" ? "Sign in →" : "Create account →"}
           </button>
+
+          {mode === "login" && (
+            <button
+              type="button"
+              onClick={handleDemoAccess}
+              style={{
+                width: "100%", padding: "13px 0", borderRadius: 14,
+                border: "1px solid rgba(99,102,241,0.28)", background: "#fff",
+                color: "#5855b7", fontSize: 14, fontWeight: 700,
+                fontFamily: "'Plus Jakarta Sans', sans-serif", cursor: "pointer",
+                marginBottom: 18,
+              }}
+            >
+              Explore read-only demo dashboard
+            </button>
+          )}
 
           <p style={{ textAlign: "center", color: "#5c5e7a", fontSize: 13, margin: 0 }}>
             {mode === "login" ? "Don't have an account? " : "Already have an account? "}
